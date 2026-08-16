@@ -84,16 +84,22 @@ struct VoiceConversationView: View {
             }
 
             let response = try await store.createSession(for: eventId)
-            guard response.unavailable != true, let signedUrl = response.signedUrl else {
+            guard response.unavailable != true else {
                 phase = .unavailable(response.reason ?? "Voice chat is not configured for this deployment.")
                 return
             }
+            // See VoiceSessionStore for why voice mode needs the token rather than the
+            // signed URL. An older backend that predates the token will omit it; say so
+            // plainly instead of failing with the SDK's text-only error message.
+            guard let conversationToken = response.conversationToken, !conversationToken.isEmpty else {
+                phase = .unavailable("This deployment's backend is out of date — it did not return a voice conversation token. Deploy the current Convex functions and try again.")
+                return
+            }
 
-            let auth = try ElevenLabsConfiguration.signedWebSocketURL(signedUrl)
             let config = ConversationConfig(onError: { error in
                 print("[VoiceConversationView] ElevenLabs SDK callback error: \(String(reflecting: error)); localizedDescription=\(error.localizedDescription)")
             })
-            let conversation = try await ElevenLabs.startConversation(auth: auth, config: config)
+            let conversation = try await ElevenLabs.startConversation(conversationToken: conversationToken, config: config)
             phase = .connected(conversation)
         } catch is CancellationError {
             return
