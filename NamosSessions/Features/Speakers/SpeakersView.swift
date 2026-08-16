@@ -29,14 +29,33 @@ struct SpeakersView: View {
                 }
 
                 ForEach(filteredSpeakers) { speaker in
-                    Button {
-                        editingSpeaker = speaker
-                        isEditorPresented = true
-                    } label: {
-                        SpeakerRow(speaker: speaker)
+                    HStack(spacing: 8) {
+                        Button {
+                            editingSpeaker = speaker
+                            isEditorPresented = true
+                        } label: {
+                            SpeakerRow(speaker: speaker)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Edit \(speaker.fullName)")
+
+                        // Their outstanding items, from the by_speaker index that has
+                        // always existed but had no way in from the phone.
+                        NavigationLink {
+                            PersonTasksView(
+                                eventId: viewModel.eventId,
+                                person: .speaker(id: speaker.id, name: speaker.fullName)
+                            )
+                        } label: {
+                            Image(systemName: "checklist")
+                                .font(.system(size: 16))
+                                .foregroundStyle(NamosColor.mutedText)
+                                .frame(width: 40, height: 40)
+                                .background(NamosColor.surface)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        }
+                        .accessibilityLabel("Tasks for \(speaker.fullName)")
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Edit \(speaker.fullName)")
                 }
 
                 if viewModel.speakers.isEmpty && !viewModel.isLoading {

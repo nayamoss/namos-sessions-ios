@@ -40,12 +40,17 @@ final class TasksViewModel: ObservableObject {
             Task { await refresh() }
             return
         }
+        // Seed from the HTTP path, which is authenticated per request and works even
+        // when the live socket does not deliver. Without this the screen sits on its
+        // initial empty value indefinitely.
+        Task { await refresh() }
+
         subscriptionTask?.cancel()
         subscriptionTask = Task { [weak self] in
             guard let self else { return }
             let updates = client
                 .subscribe(to: "tasks:list", with: ["eventId": eventId], yielding: [OrganizerTask].self)
-                .replaceError(with: [])
+                .catch { _ in Empty() }
                 .values
             for await tasks in updates {
                 guard !Task.isCancelled else { break }
@@ -58,7 +63,7 @@ final class TasksViewModel: ObservableObject {
         let newStatus = task.isDone ? "pending" : "completed"
         // Optimistic — an organizer tapping a checkbox on the go shouldn't wait on a round trip.
         if let index = tasks.firstIndex(where: { $0.id == task.id }) {
-            tasks[index] = OrganizerTask(_id: task._id, eventId: task.eventId, title: task.title, description: task.description, status: newStatus, targetType: task.targetType, dueDate: task.dueDate, source: task.source)
+            tasks[index] = OrganizerTask(_id: task._id, eventId: task.eventId, title: task.title, description: task.description, status: newStatus, targetType: task.targetType, dueDate: task.dueDate, source: task.source, speakerId: task.speakerId, sponsorId: task.sponsorId, submissionId: task.submissionId)
         }
         do {
             let _: EmptyResult = try await ConvexClient.shared.mutation("tasks:setStatus", args: ["id": task.id, "status": newStatus])

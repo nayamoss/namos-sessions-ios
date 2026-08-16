@@ -15,7 +15,16 @@ struct SponsorsView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 ForEach(viewModel.sponsors) { sponsor in
-                    NavigationLink(value: sponsor) { SponsorRow(sponsor: sponsor) }
+                    // Destination-based, not value-based: this screen lives inside
+                    // MoreView's NavigationStack, whose path is typed [MoreDestination].
+                    // A typed path only accepts values of its own type, so
+                    // NavigationLink(value: sponsor) silently did nothing and sponsor
+                    // detail was unreachable from the More tab entirely.
+                    NavigationLink {
+                        SponsorDetailView(sponsor: sponsor, tiers: viewModel.tiers, viewModel: viewModel)
+                    } label: {
+                        SponsorRow(sponsor: sponsor)
+                    }
                         .buttonStyle(.plain)
                         .contextMenu {
                             Button(role: .destructive) { sponsorToDelete = sponsor } label: {
@@ -34,9 +43,6 @@ struct SponsorsView: View {
         .toolbar { ToolbarItem(placement: .topBarTrailing) {
             Button { isCreating = true } label: { Label("Add sponsor", systemImage: "plus") }
         }}
-        .navigationDestination(for: Sponsor.self) { sponsor in
-            SponsorDetailView(sponsor: sponsor, tiers: viewModel.tiers, viewModel: viewModel)
-        }
         .refreshable { await viewModel.refresh() }
         .task { viewModel.startSubscription() }
         .sheet(isPresented: $isCreating) { SponsorEditSheet(sponsor: nil, tiers: viewModel.tiers, viewModel: viewModel) }

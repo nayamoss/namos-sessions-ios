@@ -22,8 +22,11 @@ struct AgentChatView: View {
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 12) {
                         if viewModel.events.isEmpty {
+                            // Sits in the middle of the message area rather than floating
+                            // near the top of a tall void — this is where the conversation
+                            // will appear, so the placeholder belongs there too.
                             EmptyStateView()
-                                .padding(.top, 60)
+                                .frame(maxWidth: .infinity, minHeight: 320)
                         }
                         ForEach(viewModel.events) { event in
                             AgentEventBubble(event: event)
@@ -80,30 +83,49 @@ struct AgentChatView: View {
                 }
             }
 
-            HStack(spacing: 16) {
+            // Two genuinely different voice modes used to sit side by side as two
+            // near-identical circles, with a third waveform glyph in the empty state
+            // above them — nothing told you which did what. Now there is one primary
+            // action (hold the mic) and one clearly labelled secondary one.
+            HStack(spacing: 12) {
                 Button {
                     showTypedInput.toggle()
                 } label: {
                     Image(systemName: "keyboard")
-                        .font(.system(size: 18))
-                        .foregroundStyle(NamosColor.mutedText)
+                        .font(.system(size: 17))
+                        .foregroundStyle(showTypedInput ? NamosColor.text : NamosColor.mutedText)
+                        .frame(width: 36, height: 32)
                 }
+                .accessibilityLabel(showTypedInput ? "Hide keyboard input" : "Type instead")
 
+                Spacer(minLength: 0)
+
+                Button {
+                    showVoiceConversation = true
+                } label: {
+                    Label("Start voice chat", systemImage: "waveform")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(NamosColor.text)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(NamosColor.background)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                }
+                .buttonStyle(.plain)
+                .accessibilityHint("Opens a live back-and-forth conversation with the agent.")
+            }
+
+            VStack(spacing: 6) {
                 MicButton(isRecording: voice.isRecording) {
                     startTalking()
                 } onRelease: {
                     finishTalking()
                 }
-
-                Button {
-                    showVoiceConversation = true
-                } label: {
-                    Image(systemName: "waveform.circle.fill")
-                        .font(.system(size: 24))
-                        .foregroundStyle(NamosColor.accent)
-                }
-                .accessibilityLabel("Start voice conversation")
+                Text(voice.isRecording ? "Listening — release to send" : "Hold to talk")
+                    .font(.system(size: 12))
+                    .foregroundStyle(NamosColor.mutedText)
             }
+            .frame(maxWidth: .infinity)
         }
         .padding(16)
         .background(NamosColor.surface)
@@ -216,8 +238,16 @@ private struct ThinkingIndicator: View {
 private struct EmptyStateView: View {
     var body: some View {
         VStack(spacing: 8) {
-            Image(systemName: "waveform.circle").font(.system(size: 36)).foregroundStyle(NamosColor.mutedText)
-            Text("Hold the mic and tell the agent what you need.").font(.system(size: 14)).foregroundStyle(NamosColor.mutedText)
+            // Deliberately not a waveform: that glyph now belongs to the "Start voice
+            // chat" control, and repeating it here was one of the three lookalike
+            // voice affordances on this screen.
+            Image(systemName: "bubble.left.and.bubble.right")
+                .font(.system(size: 32))
+                .foregroundStyle(NamosColor.mutedText)
+            Text("Hold the mic and tell the agent what you need.")
+                .font(.system(size: 14))
+                .foregroundStyle(NamosColor.mutedText)
+                .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
     }

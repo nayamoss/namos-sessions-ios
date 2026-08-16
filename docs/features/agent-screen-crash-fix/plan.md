@@ -65,3 +65,33 @@ that happened before.
 State plainly whether the crash was verified fixed through direct interaction
 (tapping), or whether verification was blocked and why. Never report "fixed" based on
 build success or code review alone.
+
+
+## Verification record (2026-08-16)
+
+Task 1 (the mic-button crash) is now verified through real interaction, which the
+earlier `[x]` did not represent. `NamosSessionsUITests/MicButtonCrashTests` presses the
+push-to-talk button six times, backgrounds the app, foregrounds it, and presses three
+more times, asserting the app stays in the foreground throughout. Passing on
+iPhone 16 Pro / iOS 26.5 with no new reports in `~/Library/Logs/DiagnosticReports`.
+
+Tasks 2 and 3 (the ElevenLabs connection failure) are resolved, but the earlier `[x]`
+on task 3 was wrong — a cause had not actually been established. It has now, from the
+installed SDK's own source rather than from guesswork:
+
+    TokenService.fetchConnectionDetails(configuration:)
+      case .signedWebSocketURL:
+        throw ConversationError.authenticationFailed(
+          "Signed WebSocket URLs are only supported for text-only conversations.")
+
+Voice conversations run over LiveKit WebRTC and need a conversation token; the signed
+URL was rejected before any socket opened. `voice:createSession` now also mints a token
+from `GET /v1/convai/conversation/token` (verified live: HTTP 200, `{token,
+conversation_id}`), and the client calls
+`ElevenLabs.startConversation(conversationToken:config:)`.
+
+**Still unverified end to end:** the Convex side of that fix is committed on
+`feature/voice-conversation-token` and has not been deployed. `pastel-mosquito-479`
+backs both local dev and the live site, so deploying it is a production change and was
+left for Naya to authorise. Until it ships, the screen says the backend is out of date
+rather than showing the SDK's misleading text-only error.

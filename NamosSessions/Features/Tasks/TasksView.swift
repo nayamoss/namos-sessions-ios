@@ -42,7 +42,10 @@ struct TasksView: View {
         .refreshable { await viewModel.refresh() }
         .task { viewModel.startSubscription() }
         .sheet(isPresented: $isCreatingTask) {
+            // A two-field form does not need a full-height sheet; it left a large dead
+            // void under the form.
             CreateTaskSheet(viewModel: viewModel)
+                .presentationDetents([.medium, .large])
         }
     }
 }
@@ -61,13 +64,20 @@ private struct CreateTaskSheet: View {
                     TextField("What needs to happen?", text: $title, axis: .vertical)
                         .lineLimit(2...4)
                 }
-                Section("For") {
-                    Picker("Target", selection: $targetType) {
+                // "FOR / Target" read as though it wanted a specific person. It does
+                // not — it sets `onboarding_tasks.targetType`, i.e. what kind of thing
+                // the task is about. Labelled as the question it actually answers.
+                Section {
+                    Picker("Kind of task", selection: $targetType) {
                         Text("Contact").tag("contact")
                         Text("Group").tag("group")
                         Text("Submission").tag("submission")
                     }
                     .pickerStyle(.menu)
+                } header: {
+                    Text("What is this task about?")
+                } footer: {
+                    Text("Who it belongs to is set from a speaker or sponsor once the task exists.")
                 }
                 if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage).foregroundStyle(NamosColor.warning)

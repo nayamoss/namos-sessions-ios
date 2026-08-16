@@ -69,7 +69,7 @@ private struct EventScopedTabView: View {
                 let eventName = picker.events.first(where: { $0.id == eventId })?.name ?? "Current event"
                 TabView(selection: $navigation.selectedTab) {
                     NavigationStack {
-                        DashboardView(eventId: eventId, onSelect: selectDashboardDestination)
+                        DashboardView(eventId: eventId, eventName: eventName, onSelect: selectDashboardDestination)
                     }
                     .tabItem { Label("Dashboard", systemImage: "square.grid.2x2") }
                     .tag(AppTab.dashboard)
@@ -101,7 +101,13 @@ private struct EventScopedTabView: View {
                 EventListView(picker: picker)
             }
         }
-        .task { await picker.refresh() }
+        // Authenticate the live client before anything subscribes. The tab content is
+        // gated behind the picker having chosen an event, so by the time any view model
+        // calls startSubscriptions() the socket is already authenticated.
+        .task {
+            await ConvexLiveClient.shared.authenticate()
+            await picker.refresh()
+        }
     }
 
     private func selectDashboardDestination(_ destination: DashboardDestination) {

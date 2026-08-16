@@ -36,10 +36,37 @@ struct OrganizerTask: Decodable, Identifiable, Hashable {
     let targetType: String
     let dueDate: Double?
     let source: String
+    /// Already on every `onboarding_tasks` row; the mobile client just never read them,
+    /// which is why there was no way to see one person's outstanding items.
+    let speakerId: ConvexId?
+    let sponsorId: ConvexId?
+    let submissionId: ConvexId?
 
     var id: ConvexId { _id }
 
     var isDone: Bool { status == "completed" }
+}
+
+// MARK: - task_templates (convex/taskTemplates.ts)
+
+/// One entry in a template. Decoded for display only — the server does the expansion
+/// in `applyToSubmission`/`applyToSponsor`.
+struct TaskTemplateItem: Decodable, Hashable {
+    let title: String
+    let description: String?
+    let targetType: String?
+    let dueDateOffsetDays: Double?
+}
+
+struct TaskTemplate: Decodable, Identifiable, Hashable {
+    let _id: ConvexId
+    let eventId: ConvexId
+    let name: String
+    let description: String?
+    let items: [TaskTemplateItem]
+
+    var id: ConvexId { _id }
+    var itemCountLabel: String { items.count == 1 ? "1 task" : "\(items.count) tasks" }
 }
 
 // MARK: - speakers (convex/speakers.ts)

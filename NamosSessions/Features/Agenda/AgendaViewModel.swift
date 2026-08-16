@@ -38,12 +38,17 @@ final class AgendaViewModel: ObservableObject {
             Task { await refresh() }
             return
         }
+        // Seed from the HTTP path, which is authenticated per request and works even
+        // when the live socket does not deliver. Without this the screen sits on its
+        // initial empty value indefinitely.
+        Task { await refresh() }
+
         subscriptionTask?.cancel()
         subscriptionTask = Task { [weak self] in
             guard let self else { return }
             let updates = client
                 .subscribe(to: "agenda:list", with: ["eventId": eventId], yielding: [AgendaItem].self)
-                .replaceError(with: [])
+                .catch { _ in Empty() }
                 .values
             for await items in updates {
                 guard !Task.isCancelled else { break }

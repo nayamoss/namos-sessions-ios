@@ -17,6 +17,10 @@ struct SponsorDetailView: View {
             LazyVStack(alignment: .leading, spacing: 16) {
                 if isLoading && detail == nil { ProgressView("Loading sponsor").frame(maxWidth: .infinity).padding(.top, 32) }
                 else if let detail { SponsorSummary(detail: detail); contactsSection(detail.contacts) }
+                // Outside the `detail` branch on purpose: this link only needs the
+                // sponsor's id, which we already have, so a slow or failed
+                // `sponsors:get` should not hide it.
+                tasksLink
                 if let errorMessage { Text(errorMessage).font(.system(size: 13)).foregroundStyle(NamosColor.warning) }
             }.padding(16)
         }
@@ -32,6 +36,25 @@ struct SponsorDetailView: View {
             Button("Delete", role: .destructive) { Task { await viewModel.remove(sponsor); dismiss() } }; Button("Cancel", role: .cancel) {}
         } message: { Text("This permanently deletes \(sponsor.name) and its contacts. Related tasks and submissions will be unlinked.") }
     }
+    /// Their outstanding items, plus the way in to applying a task template — both
+    /// backed by data and mutations that already existed with no mobile surface.
+    @ViewBuilder private var tasksLink: some View {
+        NavigationLink {
+            PersonTasksView(eventId: sponsor.eventId, person: .sponsor(id: sponsor.id, name: sponsor.name))
+        } label: {
+            HStack {
+                Text("Tasks").font(.system(size: 15, weight: .medium)).foregroundStyle(NamosColor.text)
+                Spacer()
+                Image(systemName: "chevron.right").font(.system(size: 12, weight: .semibold)).foregroundStyle(NamosColor.mutedText)
+            }
+            .padding(14)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(NamosColor.surface)
+            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+        }
+        .buttonStyle(.plain)
+    }
+
     @ViewBuilder private func contactsSection(_ contacts: [SponsorContact]) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack { Text("Contacts").font(.system(size: 17, weight: .semibold)).foregroundStyle(NamosColor.text); Spacer()

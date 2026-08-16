@@ -49,6 +49,11 @@ final class NotificationsViewModel: ObservableObject {
             Task { await refresh() }
             return
         }
+        // Seed from the HTTP path, which is authenticated per request and works even
+        // when the live socket does not deliver. Without this the screen sits on its
+        // initial empty value indefinitely.
+        Task { await refresh() }
+
         listSubscriptionTask?.cancel()
         unreadSubscriptionTask?.cancel()
         listSubscriptionTask = Task { [weak self] in
@@ -66,7 +71,7 @@ final class NotificationsViewModel: ObservableObject {
             guard let self else { return }
             let updates = client
                 .subscribe(to: "notifications:unreadCount", with: [:], yielding: Int.self)
-                .replaceError(with: 0)
+                .catch { _ in Empty() }
                 .values
             for await count in updates {
                 guard !Task.isCancelled else { break }

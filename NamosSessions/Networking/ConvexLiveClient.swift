@@ -22,4 +22,28 @@ final class ConvexLiveClient {
             authProvider: ClerkConvexAuthProvider()
         )
     }
+
+    /// Hands the cached Clerk session to Convex.
+    ///
+    /// `ConvexClientWithAuth` opens its WebSocket unauthenticated and stays that way
+    /// until something calls `login()`/`loginFromCache()`. Nothing did. Every
+    /// event-scoped query is behind `assertEventOrganizerAccess`, so the server
+    /// rejected each subscription and the socket sat in a reconnect loop — which is
+    /// why the Dashboard, Tasks, Agenda, Speakers, Sponsors, Check-in, Notifications
+    /// and Agent screens all showed their initial zero/empty values forever. The
+    /// screens that appeared to work were the ones on the HTTP path in ConvexClient,
+    /// which attaches the Clerk JWT per request and was never affected.
+    ///
+    /// Safe to call repeatedly; each call just re-reads the cached session.
+    @discardableResult
+    func authenticate() async -> Bool {
+        guard let client else { return false }
+        switch await client.loginFromCache() {
+        case .success:
+            return true
+        case .failure(let error):
+            print("⚠️ Convex live login failed — live subscriptions will not deliver: \(String(reflecting: error))")
+            return false
+        }
+    }
 }

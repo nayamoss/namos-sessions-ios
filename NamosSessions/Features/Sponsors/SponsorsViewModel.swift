@@ -28,11 +28,16 @@ final class SponsorsViewModel: ObservableObject {
 
     func startSubscription() {
         guard let client = ConvexLiveClient.shared.client else { Task { await refresh() }; return }
+        // Seed from the HTTP path, which is authenticated per request and works even
+        // when the live socket does not deliver. Without this the screen sits on its
+        // initial empty value indefinitely.
+        Task { await refresh() }
+
         subscriptionTask?.cancel()
         subscriptionTask = Task { [weak self] in
             guard let self else { return }
             let updates = client.subscribe(to: "sponsors:list", with: ["eventId": eventId], yielding: [Sponsor].self)
-                .replaceError(with: []).values
+                .catch { _ in Empty() }.values
             for await sponsors in updates {
                 guard !Task.isCancelled else { break }
                 self.sponsors = self.sort(sponsors)

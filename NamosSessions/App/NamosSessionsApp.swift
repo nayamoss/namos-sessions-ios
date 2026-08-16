@@ -24,6 +24,12 @@ struct NamosSessionsApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(ClerkAuthManager.shared)
+                // Blue is banned in this app, but toolbar buttons — unlike custom Button
+                // views — take the system accent unless something overrides it, which is
+                // how "Cancel"/"Create" on the New Task sheet ended up system blue.
+                // Tinting at the scene root covers every sheet and toolbar at once
+                // rather than relying on each new screen to remember.
+                .tint(NamosColor.accent)
                 .preferredColorScheme(preferredColorScheme)
                 .task {
                     guard notificationsEnabled else { return }
