@@ -1,0 +1,11 @@
+Blocked by workspace permissions: `.git` is read-only, so Git cannot create `feature/device-tokens` or make a commit (`Operation not permitted` creating `.git/refs/...lock`).
+
+Implemented, unstaged:
+
+- `convex/schema.ts`: `device_tokens` table with `by_userId` and `by_token`
+- `convex/deviceTokens.ts`: authenticated `register` upsert and ownership-checked `unregister`
+
+`npm run typecheck` passes.
+
+Current branch: `main`  
+No local commit was possible; therefore no commit hash exists. The pre-existing dirty files were not staged or modified by me, aside from adding the requested hunk to the already-dirty `convex/schema.ts`.

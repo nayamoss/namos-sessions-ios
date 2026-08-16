@@ -1,0 +1,16 @@
+// Local Xcode configuration. Copy to Config.local.xcconfig; never commit that file.
+// $() prevents Xcode from treating the second slash as an inline comment.
+
+// Same publishable key the webapp's VITE_CLERK_PUBLISHABLE_KEY uses — Clerk publishable
+// keys are safe to embed in a client build. Left blank on purpose: ClerkKit's own
+// validation base64-decodes whatever follows "pk_test_"/"pk_live_" to derive its API
+// URL, so a fake-but-prefixed placeholder (e.g. "pk_test_your-key") still crashes on
+// launch — only ClerkAuthManager's empty-string check is safe to rely on here.
+CLERK_PUBLISHABLE_KEY =
+
+// Same value as the webapp's VITE_CONVEX_URL — the deployed Convex backend's public
+// .convex.cloud origin. No separate mobile backend to stand up.
+CONVEX_BASE_URL = https:/$()/your-project.convex.cloud
+
+// Product identity.
+NAMOS_SESSIONS_IOS_BUNDLE_IDENTIFIER = com.namos.sessions

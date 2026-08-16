@@ -1,0 +1,11 @@
+Implemented APNs device-token wiring.
+
+- Added `AppDelegate` + `UIApplicationDelegateAdaptor`, notification authorization, APNs registration, token failure logging.
+- Added `DeviceTokenManager`: hex token conversion, cached pre-sign-in token retry, authenticated `deviceTokens:register` (`platform: "ios"`), and best-effort `deviceTokens:unregister` before Clerk sign-out.
+- Added `UIBackgroundModes: remote-notification`; no notification privacy usage-description is required for remote push.
+- Regenerated `NamosSessions.xcodeproj` and checked off task 5 in [plan.md](/Users/nieoln/GitHub/sites/01-active-projects/namos-sessions-main/namos-sessions-ios/docs/features/complete-ios-scaffold/plan.md).
+- Syntax and plist validation passed.
+
+Build status: `xcodegen generate` succeeded. The requested `xcodebuild` command could not complete in this sandbox: SwiftPM cache writes and its internal sandbox process are blocked, and network package fetching is unavailable. I cannot truthfully claim a successful Xcode build here.
+
+Actual push delivery was not tested—APNs does not work in the Simulator. A real device, paid Apple Developer team/APNs entitlement, and the merged backend mutations are required for runtime verification.

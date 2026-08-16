@@ -1,0 +1,32 @@
+Completed tasks 1, 2, 3, 4, and 6; checked them in [plan.md](/Users/nieoln/GitHub/sites/01-active-projects/namos-sessions-main/namos-sessions-ios/docs/features/complete-ios-scaffold/plan.md).
+
+- Real Clerk email-code sign-in UI, retaining safe missing-config behavior.
+- Official Convex Mobile + Clerk bridge subscriptions for Agent, Tasks, and Agenda, with HTTP fallback.
+- Task creation sheet and prominent Agenda “Happening now” section.
+- Inline agent task-proposal approval/rejection UI backed by the exact existing Convex mutations.
+- App icon sourced from the webapp’s existing Apple touch icon; configured AccentColor. Bundle ID remains config-driven; `DEVELOPMENT_TEAM` intentionally remains empty for a human Apple Developer account.
+
+Skipped task 5: `convex/` has no device-token table, APNs token registration mutation, or related contract. It requires a backend schema/API decision before iOS can safely register tokens.
+
+Verification commands run:
+
+```sh
+# Task 1
+xcodegen generate
+xcodebuild build -project NamosSessions.xcodeproj -scheme NamosSessions -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO
+
+# Task 2
+xcodegen generate
+xcodebuild build -project NamosSessions.xcodeproj -scheme NamosSessions -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO
+
+# Tasks 3, 4, and 6
+xcodebuild build -project NamosSessions.xcodeproj -scheme NamosSessions -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO
+```
+
+Every final verification build succeeded. I also ran:
+
+```sh
+xcrun simctl list devices available
+```
+
+Simulator launch/install verification could not run because CoreSimulatorService is unavailable on this host (`Connection refused` / no device set), so no `simctl install` or `launch --console` could be performed.
