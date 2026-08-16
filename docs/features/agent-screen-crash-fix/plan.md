@@ -90,8 +90,20 @@ from `GET /v1/convai/conversation/token` (verified live: HTTP 200, `{token,
 conversation_id}`), and the client calls
 `ElevenLabs.startConversation(conversationToken:config:)`.
 
-**Still unverified end to end:** the Convex side of that fix is committed on
-`feature/voice-conversation-token` and has not been deployed. `pastel-mosquito-479`
-backs both local dev and the live site, so deploying it is a production change and was
-left for Naya to authorise. Until it ships, the screen says the backend is out of date
-rather than showing the SDK's misleading text-only error.
+**Deployed and confirmed (2026-08-16).** Merged to `main`, pushed, and pushed to both
+Convex deployments — `calculating-loris-761` (prod, via `convex deploy`) and
+`pastel-mosquito-479` (the one the iOS app and `wrangler.jsonc` actually point at, via
+`convex dev --once`). Worth knowing: `convex deploy` alone does **not** reach the
+deployment serving the live site.
+
+`NamosSessionsUITests/VoiceAgentConnectionTests` then drove the entry point. The
+authentication failure is gone: the screen now gets past "Connecting…" and fails later
+with
+
+    Failed to toggle microphone: Audio Engine Error(Audio engine returned error code: -4010)
+
+which only happens *after* the token is accepted and the LiveKit session is up. -4010 is
+`kAudioUnitErr_CannotDoInCurrentContext` — the Simulator has no real audio input device.
+The test therefore **skips** rather than passes, so it can never be mistaken for full
+verification. Confirming audio in both directions needs a physical device; that is the
+one remaining step on this feature.
