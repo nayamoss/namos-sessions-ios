@@ -6,7 +6,7 @@ Copy the "Prompt for the next agent" section into a fresh session.
 ## State as of 2026-08-16 (all pushed, nothing local-only)
 
 - `namos-sessions-ios` — **new private repo**: https://github.com/nayamoss/namos-sessions-ios
-  `main` = `dev` = `f562dac`. Before today this folder had no git history at all.
+  `main` = `dev` on origin. Before today this folder had no git history at all.
 - `namos-sessions-webapp` — `main` = `dev` = `origin/main` = `origin/dev` = `22b2b1a`.
 - Convex: deployed to **both** `calculating-loris-761` (prod) and `pastel-mosquito-479`.
 - Test suite: 4 XCUITests, 3 passing, 1 skipping for a documented hardware reason.
@@ -14,7 +14,7 @@ Copy the "Prompt for the next agent" section into a fresh session.
 ## Prompt for the next agent
 
 > You are picking up the Namos Sessions iOS app (`namos-sessions-ios`, private repo,
-> `main` at `f562dac`) and its Convex backend (`namos-sessions-webapp`, `main` at
+> current `main`) and its Convex backend (`namos-sessions-webapp`, `main` at
 > `22b2b1a`). Both are fully pushed and in sync; no merges are pending.
 >
 > Before you touch anything, read these two things — they encode why previous sessions
