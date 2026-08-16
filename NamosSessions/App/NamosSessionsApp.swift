@@ -36,9 +36,14 @@ struct NamosSessionsApp: App {
                     await DeviceTokenManager.shared.registerIfPossible()
                 }
                 .onChange(of: ClerkAuthManager.shared.isSignedIn) { _, isSignedIn in
-                    guard isSignedIn, notificationsEnabled else { return }
                     Task {
-                        await DeviceTokenManager.shared.registerIfPossible()
+                        if isSignedIn {
+                            _ = await ConvexLiveClient.shared.authenticate()
+                            guard notificationsEnabled else { return }
+                            await DeviceTokenManager.shared.registerIfPossible()
+                        } else {
+                            await ConvexLiveClient.shared.logout()
+                        }
                     }
                 }
         }

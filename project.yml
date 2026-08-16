@@ -13,9 +13,6 @@ packages:
   ConvexMobile:
     url: https://github.com/get-convex/convex-swift
     from: 0.8.0
-  ClerkConvex:
-    url: https://github.com/clerk/clerk-convex-swift
-    from: 0.1.0
   ElevenLabs:
     url: https://github.com/elevenlabs/elevenlabs-swift-sdk
     from: 3.2.2
@@ -51,7 +48,6 @@ targets:
     dependencies:
       - package: ClerkKit
       - package: ConvexMobile
-      - package: ClerkConvex
       - package: ElevenLabs
   # Host-side tap automation (osascript/System Events) needs macOS Accessibility
   # permission that this machine does not grant, which is why "build succeeded" kept

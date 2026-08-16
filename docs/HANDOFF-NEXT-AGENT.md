@@ -62,15 +62,15 @@ Copy the "Prompt for the next agent" section into a fresh session.
 > avoid service interruption" on every deploy. Check the dashboard and tell Naya whether
 > this is about to break production.
 >
-> **4. Live Convex subscriptions still never deliver.**
-> This is worth understanding before building anything new. `ConvexClientWithAuth` now
-> authenticates correctly (`ConvexLiveClient.authenticate()` calls `loginFromCache()`,
-> which succeeds), and `startSubscriptions()` runs — but the subscription publishers emit
-> nothing at all, not even an error. Every screen is currently powered by the HTTP seed
-> (`Task { await refresh() }`) added to each view model, so the app works but is not live;
-> pull-to-refresh is the only way to get new data. Diagnosing this means digging into
-> convex-swift's Rust core. Do not remove the HTTP seed — it is the only reason any screen
-> shows data.
+> **4. Confirm live Convex subscriptions deliver after the JWT-template correction.**
+> The old `ClerkConvexAuthProvider` requested Clerk's default JWT, while both the backend
+> and the HTTP client require Clerk's explicitly named `convex` template. It has been
+> replaced with `ConvexTemplateAuthProvider`, which asks for that same template, and the
+> obsolete `clerk-convex-swift` dependency was removed. `TasksViewModel` now logs both a
+> delivery and a subscription failure to make this observable. The full XCUITest suite
+> passes, but it cannot distinguish WebSocket data from the HTTP seed; confirm one real
+> delivery in Console/Xcode (or add a focused test that performs a separate write).
+> Do not remove the HTTP seed — it remains the resilience path if the socket is unavailable.
 >
 > **5. T014 — voice-triggered subagent.** Deliberately unbuilt, pending Naya's sign-off.
 > Do not start it without asking.

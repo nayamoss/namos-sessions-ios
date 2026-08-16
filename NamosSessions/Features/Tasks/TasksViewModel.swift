@@ -50,6 +50,16 @@ final class TasksViewModel: ObservableObject {
             guard let self else { return }
             let updates = client
                 .subscribe(to: "tasks:list", with: ["eventId": eventId], yielding: [OrganizerTask].self)
+                .handleEvents(
+                    receiveOutput: { _ in
+                        print("✅ Convex live subscription delivered tasks:list.")
+                    },
+                    receiveCompletion: { completion in
+                        if case .failure(let error) = completion {
+                            print("⚠️ Convex live subscription failed for tasks:list: \(String(reflecting: error))")
+                        }
+                    }
+                )
                 .catch { _ in Empty() }
                 .values
             for await tasks in updates {

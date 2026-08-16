@@ -1,15 +1,6 @@
 {
-  "originHash" : "9e634fc4173b7efcd132fbd4d8606f49b1c14d616f1b94712913d337a5949894",
+  "originHash" : "ee2bb1dd2b7b5995bfbeb8dbcf7a2984816ddcd0994d7dc366ef71c20efa7b70",
   "pins" : [
-    {
-      "identity" : "clerk-convex-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/clerk/clerk-convex-swift",
-      "state" : {
-        "revision" : "5c7e62ee329a00df0f9ed73462c54b069a7286ab",
-        "version" : "0.1.0"
-      }
-    },
     {
       "identity" : "clerk-ios",
       "kind" : "remoteSourceControl",

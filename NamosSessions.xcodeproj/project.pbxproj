@@ -23,13 +23,13 @@
 		22003706CFD27FD7F4E68FE7 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D01E4819A5C99F6EE12C2C /* KeychainService.swift */; };
 		2807A684B861139A33159CEC /* SpeakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63394FA291D1EE1AAC96FFB /* SpeakersView.swift */; };
 		2875F6CD3C9E1D7EA1E21FAC /* TaskTemplatePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE793EAE147012AE003D1CF /* TaskTemplatePickerSheet.swift */; };
-		287A28E8BD75452B86ED2955 /* ElevenLabs in Frameworks */ = {isa = PBXBuildFile; productRef = 67B99BE6AD5A0BA2D4CB32BA /* ElevenLabs */; };
 		409BED0F418778040ABC0A84 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E163C985F104FA918E55F1A /* CheckInView.swift */; };
 		442355DA58D6729C7BD00C86 /* ConvexMobile in Frameworks */ = {isa = PBXBuildFile; productRef = 523EDC84AD030A28E40B7924 /* ConvexMobile */; };
 		530FEEAA3AC809749B6F30E9 /* VoiceCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D1817B14E34EFBBB8CED4E /* VoiceCaptureService.swift */; };
 		56DAF433B6E49D723ACCBDE3 /* SponsorEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8C6AF6E7E84AC57E97BA6C /* SponsorEditSheet.swift */; };
 		62B8735A50AB97C45BF46DF0 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E8D502F34287EA55E1D04A /* MoreView.swift */; };
 		64C2587293D36FCDFFE2710C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D56AB604EBE9FF70D9677 /* DashboardViewModel.swift */; };
+		66399FD9CDA2FEDD5EA8F4BB /* ConvexTemplateAuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5204FFFEFECFFF9414897AB /* ConvexTemplateAuthProvider.swift */; };
 		68024E6C24C2632587700FD3 /* SpeakerEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635DB12347D2FCEFE9DA68F7 /* SpeakerEditSheet.swift */; };
 		6941EF7CECA10B63B3FCDDD5 /* AgendaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B49C98E8962BF6A747674DF0 /* AgendaViewModel.swift */; };
 		6B3F6EDB0F7A56C9650F70A4 /* TasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6355B12C9592729CBC1F48A /* TasksViewModel.swift */; };
@@ -38,7 +38,7 @@
 		890AD303037B1199456F367B /* AgentChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D95E44439306B0B4D084C8 /* AgentChatViewModel.swift */; };
 		8EF47088BBAD46E16A264712 /* PersonTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F6C950FB48BDBF45281250 /* PersonTasksView.swift */; };
 		93BB7C7E3AD7407B92B549CA /* EventPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D7F9F83CC021EC28B27D2E /* EventPickerViewModel.swift */; };
-		943310E6373FB4AB6E39B083 /* ClerkConvex in Frameworks */ = {isa = PBXBuildFile; productRef = C71737EE8D3CA3238AFF5294 /* ClerkConvex */; };
+		943310E6373FB4AB6E39B083 /* ElevenLabs in Frameworks */ = {isa = PBXBuildFile; productRef = 67B99BE6AD5A0BA2D4CB32BA /* ElevenLabs */; };
 		97D38E1CD0A31679B49A26CA /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482559CDDA5F5328E9B5D468 /* NotificationsViewModel.swift */; };
 		992E7B8F345F407F29FF7209 /* SubmissionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01C1E0B75B9AD9CF2B68 /* SubmissionsViewModel.swift */; };
 		AB0D63B99A5DC3989237C567 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C30457ABADF28F6A1405010 /* NotificationsView.swift */; };
@@ -111,6 +111,7 @@
 		92D7F9F83CC021EC28B27D2E /* EventPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPickerViewModel.swift; sourceTree = "<group>"; };
 		99428709960789343DCB1A45 /* ConvexClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvexClient.swift; sourceTree = "<group>"; };
 		A2A7BA72972BEE2C48C1AB84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A5204FFFEFECFFF9414897AB /* ConvexTemplateAuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvexTemplateAuthProvider.swift; sourceTree = "<group>"; };
 		A575957B809CE5EA7B120ADE /* NamosSessionsUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NamosSessionsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C6EFD43451718B0C9A95F6 /* SponsorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsViewModel.swift; sourceTree = "<group>"; };
 		A60AFEDF2F8B3E2D3EB9D550 /* MicButtonCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicButtonCrashTests.swift; sourceTree = "<group>"; };
@@ -141,8 +142,7 @@
 			files = (
 				BF2092F35F2FE6B91F7685A3 /* ClerkKit in Frameworks */,
 				442355DA58D6729C7BD00C86 /* ConvexMobile in Frameworks */,
-				943310E6373FB4AB6E39B083 /* ClerkConvex in Frameworks */,
-				287A28E8BD75452B86ED2955 /* ElevenLabs in Frameworks */,
+				943310E6373FB4AB6E39B083 /* ElevenLabs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +361,7 @@
 			children = (
 				99428709960789343DCB1A45 /* ConvexClient.swift */,
 				4B36414E6CCD39BA0EF24367 /* ConvexLiveClient.swift */,
+				A5204FFFEFECFFF9414897AB /* ConvexTemplateAuthProvider.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -449,7 +450,6 @@
 			packageProductDependencies = (
 				C2570DFCE8FDAF1497A337E3 /* ClerkKit */,
 				523EDC84AD030A28E40B7924 /* ConvexMobile */,
-				C71737EE8D3CA3238AFF5294 /* ClerkConvex */,
 				67B99BE6AD5A0BA2D4CB32BA /* ElevenLabs */,
 			);
 			productName = NamosSessions;
@@ -484,7 +484,6 @@
 			mainGroup = 9C256B1F5F717EAFD29A1466;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				0843D1DC99081D12D819D980 /* XCRemoteSwiftPackageReference "clerk-convex-swift" */,
 				97F1DF2FB1E1F931B5FC2E86 /* XCRemoteSwiftPackageReference "clerk-ios" */,
 				38D1A389DED77C9DDC9CBAD1 /* XCRemoteSwiftPackageReference "convex-swift" */,
 				F7D67D54BCEE5CAAFB89CFB5 /* XCRemoteSwiftPackageReference "elevenlabs-swift-sdk" */,
@@ -539,6 +538,7 @@
 				C147B58C24E93E19C940A80D /* ConvexClient.swift in Sources */,
 				DAFD1DC4171314637B0F03C6 /* ConvexLiveClient.swift in Sources */,
 				1F6169026965ABE2CFE3B735 /* ConvexModels.swift in Sources */,
+				66399FD9CDA2FEDD5EA8F4BB /* ConvexTemplateAuthProvider.swift in Sources */,
 				1FE9E16986A78D41B9B28C07 /* DashboardView.swift in Sources */,
 				64C2587293D36FCDFFE2710C /* DashboardViewModel.swift in Sources */,
 				C4173FC75AA240CE80AAA417 /* DeviceTokenManager.swift in Sources */,
@@ -824,14 +824,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0843D1DC99081D12D819D980 /* XCRemoteSwiftPackageReference "clerk-convex-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/clerk/clerk-convex-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
-		};
 		38D1A389DED77C9DDC9CBAD1 /* XCRemoteSwiftPackageReference "convex-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/get-convex/convex-swift";
@@ -873,11 +865,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 97F1DF2FB1E1F931B5FC2E86 /* XCRemoteSwiftPackageReference "clerk-ios" */;
 			productName = ClerkKit;
-		};
-		C71737EE8D3CA3238AFF5294 /* ClerkConvex */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0843D1DC99081D12D819D980 /* XCRemoteSwiftPackageReference "clerk-convex-swift" */;
-			productName = ClerkConvex;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

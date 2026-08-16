@@ -1,4 +1,3 @@
-import ClerkConvex
 import ConvexMobile
 import Foundation
 
@@ -9,6 +8,7 @@ final class ConvexLiveClient {
     static let shared = ConvexLiveClient()
 
     let client: ConvexClientWithAuth<String>?
+    private let authProvider = ConvexTemplateAuthProvider()
 
     private init() {
         guard let raw = Bundle.main.object(forInfoDictionaryKey: "ConvexBaseURL") as? String,
@@ -19,7 +19,7 @@ final class ConvexLiveClient {
         }
         client = ConvexClientWithAuth(
             deploymentUrl: raw,
-            authProvider: ClerkConvexAuthProvider()
+            authProvider: authProvider
         )
     }
 
@@ -40,10 +40,15 @@ final class ConvexLiveClient {
         guard let client else { return false }
         switch await client.loginFromCache() {
         case .success:
+            print("✅ Convex live client authenticated with the Clerk 'convex' template.")
             return true
         case .failure(let error):
             print("⚠️ Convex live login failed — live subscriptions will not deliver: \(String(reflecting: error))")
             return false
         }
+    }
+
+    func logout() async {
+        await client?.logout()
     }
 }
