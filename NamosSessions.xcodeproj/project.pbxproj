@@ -17,6 +17,7 @@
 		1293438D0442FE64026F5497 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580B9460271852C2F6F8EBDB /* AppDelegate.swift */; };
 		1F6169026965ABE2CFE3B735 /* ConvexModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18514ADE67B9FFD577553F1F /* ConvexModels.swift */; };
 		1FE9E16986A78D41B9B28C07 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE72F7CA938B09E5B02E1D /* DashboardView.swift */; };
+		20E94B0EDCC1A33C0CF99EFA /* MicButtonCrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60AFEDF2F8B3E2D3EB9D550 /* MicButtonCrashTests.swift */; };
 		215752F1F08F09ACB89ADA3D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A7BA72972BEE2C48C1AB84 /* ContentView.swift */; };
 		22003706CFD27FD7F4E68FE7 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D01E4819A5C99F6EE12C2C /* KeychainService.swift */; };
 		2807A684B861139A33159CEC /* SpeakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63394FA291D1EE1AAC96FFB /* SpeakersView.swift */; };
@@ -60,6 +61,16 @@
 		FC25910C39B3FFD71FA6C62F /* AgendaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04255D12EB5CC9EA0422DC49 /* AgendaView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A8267353942BA2C3D22E2FFF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D296B4BEC8351CCE678476D5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE1CF8D91FFCA91C878D320E;
+			remoteInfo = NamosSessions;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		04255D12EB5CC9EA0422DC49 /* AgendaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaView.swift; sourceTree = "<group>"; };
 		04E38A2C4CB4B63F9CAD72F6 /* AgendaEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaEditView.swift; sourceTree = "<group>"; };
@@ -95,7 +106,9 @@
 		92D7F9F83CC021EC28B27D2E /* EventPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventPickerViewModel.swift; sourceTree = "<group>"; };
 		99428709960789343DCB1A45 /* ConvexClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvexClient.swift; sourceTree = "<group>"; };
 		A2A7BA72972BEE2C48C1AB84 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A575957B809CE5EA7B120ADE /* NamosSessionsUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NamosSessionsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C6EFD43451718B0C9A95F6 /* SponsorsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorsViewModel.swift; sourceTree = "<group>"; };
+		A60AFEDF2F8B3E2D3EB9D550 /* MicButtonCrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicButtonCrashTests.swift; sourceTree = "<group>"; };
 		A74D56AB604EBE9FF70D9677 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		B3D95E44439306B0B4D084C8 /* AgentChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentChatViewModel.swift; sourceTree = "<group>"; };
 		B49C98E8962BF6A747674DF0 /* AgendaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgendaViewModel.swift; sourceTree = "<group>"; };
@@ -256,6 +269,7 @@
 			children = (
 				C87E751D973C6901AC97E665 /* namos-sessions-ios */,
 				D36C61FC08C672B432C1304F /* NamosSessions */,
+				B1F1470A78952905B888BC0E /* NamosSessionsUITests */,
 				F29EB30FAC400874A59F2B19 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -266,6 +280,14 @@
 				18514ADE67B9FFD577553F1F /* ConvexModels.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		B1F1470A78952905B888BC0E /* NamosSessionsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A60AFEDF2F8B3E2D3EB9D550 /* MicButtonCrashTests.swift */,
+			);
+			path = NamosSessionsUITests;
 			sourceTree = "<group>";
 		};
 		B25A3138F24FA5A4270970FF /* Notifications */ = {
@@ -373,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				FECB58D7C753CE3E1B884215 /* NamosSessions.app */,
+				A575957B809CE5EA7B120ADE /* NamosSessionsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -380,6 +403,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6E12DB7EC6A1A9B2E05C85C9 /* NamosSessionsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D847206C9CFDFDFD02043AC5 /* Build configuration list for PBXNativeTarget "NamosSessionsUITests" */;
+			buildPhases = (
+				7C5772CC2D096A7186B762C7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E83BB23320AEA7BF0A2E7B84 /* PBXTargetDependency */,
+			);
+			name = NamosSessionsUITests;
+			packageProductDependencies = (
+			);
+			productName = NamosSessionsUITests;
+			productReference = A575957B809CE5EA7B120ADE /* NamosSessionsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		FE1CF8D91FFCA91C878D320E /* NamosSessions */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9CAE5F9E7827C5C342B5FDD /* Build configuration list for PBXNativeTarget "NamosSessions" */;
@@ -412,6 +453,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					6E12DB7EC6A1A9B2E05C85C9 = {
+						DevelopmentTeam = "";
+						TestTargetID = FE1CF8D91FFCA91C878D320E;
+					};
 					FE1CF8D91FFCA91C878D320E = {
 						DevelopmentTeam = "";
 					};
@@ -438,6 +483,7 @@
 			projectRoot = "";
 			targets = (
 				FE1CF8D91FFCA91C878D320E /* NamosSessions */,
+				6E12DB7EC6A1A9B2E05C85C9 /* NamosSessionsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -454,6 +500,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7C5772CC2D096A7186B762C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20E94B0EDCC1A33C0CF99EFA /* MicButtonCrashTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		85721D814ACD77AC415BEAE3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,6 +562,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E83BB23320AEA7BF0A2E7B84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE1CF8D91FFCA91C878D320E /* NamosSessions */;
+			targetProxy = A8267353942BA2C3D22E2FFF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		0B184D3AD8ADCADA53F1163E /* Release */ = {
@@ -631,6 +693,46 @@
 			};
 			name = Debug;
 		};
+		8CB3D257413BE5430BA50BDB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(NAMOS_SESSIONS_IOS_BUNDLE_IDENTIFIER).uitests";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NamosSessions;
+			};
+			name = Debug;
+		};
+		CCEEAFF20078EED0DCBB2A0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = x86_64;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(NAMOS_SESSIONS_IOS_BUNDLE_IDENTIFIER).uitests";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NamosSessions;
+			};
+			name = Release;
+		};
 		EA814CCED65D037EA4ECA69F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -681,6 +783,15 @@
 			buildConfigurations = (
 				55447E9E935A4C666BABA9F9 /* Debug */,
 				0B184D3AD8ADCADA53F1163E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D847206C9CFDFDFD02043AC5 /* Build configuration list for PBXNativeTarget "NamosSessionsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8CB3D257413BE5430BA50BDB /* Debug */,
+				CCEEAFF20078EED0DCBB2A0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

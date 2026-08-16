@@ -53,3 +53,33 @@ targets:
       - package: ConvexMobile
       - package: ClerkConvex
       - package: ElevenLabs
+  # Host-side tap automation (osascript/System Events) needs macOS Accessibility
+  # permission that this machine does not grant, which is why "build succeeded" kept
+  # standing in for "confirmed working." XCUITest drives the simulator from the inside
+  # and needs no such permission, so interactive verification is scriptable here.
+  NamosSessionsUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: NamosSessionsUITests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(NAMOS_SESSIONS_IOS_BUNDLE_IDENTIFIER).uitests
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: 5.0
+        DEVELOPMENT_TEAM: ""
+        "EXCLUDED_ARCHS[sdk=iphonesimulator*]": x86_64
+    dependencies:
+      - target: NamosSessions
+schemes:
+  NamosSessions:
+    build:
+      targets:
+        NamosSessions: all
+        NamosSessionsUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - NamosSessionsUITests

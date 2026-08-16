@@ -175,6 +175,12 @@ private struct MicButton: View {
                     .onChanged { _ in if !isRecording { onPress() } }
                     .onEnded { _ in onRelease() }
             )
+            // A bare Circle with a DragGesture is invisible to XCUITest unless it is
+            // explicitly published as an element. NamosSessionsUITests presses this
+            // repeatedly to prove the mic-button crash stays fixed.
+            .accessibilityElement()
+            .accessibilityIdentifier("agent.micButton")
+            .accessibilityLabel("Hold to talk")
     }
 }
 
