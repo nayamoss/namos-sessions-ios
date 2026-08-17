@@ -50,7 +50,18 @@ Copy the "Prompt for the next agent" section into a fresh session.
 > will be genuinely new — read it before changing anything, and note that
 > `VoiceSessionStore` already logs the real error objects.
 >
-> **2. Decide the two-Convex-deployment split.**
+> **2. Decide the two-Convex-deployment split.** [Update 2026-08-17: full writeup now in
+> `namos-sessions-webapp/docs/deployment/production.md` — read that instead of re-deriving this.
+> Short version: `calculating-loris-761` is Convex's own designated "production" deployment but
+> holds only 3 stale seed events; `pastel-mosquito-479` is labeled a personal dev deployment but
+> holds 100% of the real live data and is what `wrangler.jsonc`/`.env.local`/iOS actually point
+> at. Bare `npx convex deploy` targets the empty one, silently. This has already bitten two agent
+> sessions in one night (deleted/recreated indexes on the wrong deployment, no data lost both
+> times because it was caught before a Worker deploy). Push functions with
+> `CONVEX_DEPLOYMENT="dev:pastel-mosquito-479" npx convex dev --once`, never bare `convex deploy`.
+> The actual topology decision — repoint which deployment is "production", or retire/rename
+> `calculating-loris-761` — is still open and needs Naya, not an agent, to decide.]
+>
 > `npx convex deploy` targets `calculating-loris-761`, but `wrangler.jsonc`
 > (`VITE_CONVEX_URL`), `.env.local`, and the iOS app's `CONVEX_BASE_URL` all point at
 > `pastel-mosquito-479`. So `convex deploy` alone does **not** update the backend serving
