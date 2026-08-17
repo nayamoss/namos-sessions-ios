@@ -97,9 +97,9 @@ Copy the "Prompt for the next agent" section into a fresh session.
 >   Fine at current data volumes; add a server-side filter if sponsor counts grow.
 >
 > House rules that apply: never make a repo public; no blue buttons (use
-> `NamosColor.accent`); never touch Convex schema/migrations without confirming with Naya
-> first; batch commits and push once rather than pushing repeatedly to auto-deploying
-> branches; log remaining work in `/Users/nieoln/GitHub/sites/naya-project-todos/todo.md`.
+> `NamosColor.accent`); never touch Convex schema/migrations without confirming first;
+> batch commits and push once rather than pushing repeatedly to auto-deploying
+> branches; log remaining work in the project todo tracker.
 
 ## Branch bookkeeping done today
 
