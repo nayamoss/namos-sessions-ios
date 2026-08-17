@@ -5,9 +5,8 @@ import SwiftUI
 /// is the first place iOS reads them.
 ///
 /// Speakers use the server-side filter (`tasks:list` takes an optional `speakerId` and
-/// queries `by_speaker`). Sponsors have no equivalent argument, so those are filtered
-/// client-side from the event's task list — still no new backend surface, which is what
-/// the audit asked for.
+/// queries `by_speaker`). Sponsors now use the equivalent `sponsorId` argument added to
+/// `tasks:list` (queries `by_sponsor`), so both paths filter server-side.
 struct PersonTasksView: View {
     enum Person: Hashable {
         case speaker(id: ConvexId, name: String)
@@ -108,11 +107,10 @@ struct PersonTasksView: View {
                     args: ["eventId": eventId, "speakerId": speakerId]
                 )
             case .sponsor(let sponsorId, _):
-                let all: [OrganizerTask] = try await ConvexClient.shared.query(
+                tasks = try await ConvexClient.shared.query(
                     "tasks:list",
-                    args: ["eventId": eventId]
+                    args: ["eventId": eventId, "sponsorId": sponsorId]
                 )
-                tasks = all.filter { $0.sponsorId == sponsorId }
             }
             errorMessage = nil
         } catch {
