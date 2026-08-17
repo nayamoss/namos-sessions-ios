@@ -5,6 +5,17 @@ the **same Convex functions** the webapp calls, authenticated with the **same Cl
 "convex" JWT template**. Ported the generic pieces (Clerk auth bootstrap, Keychain,
 haptics) from the Sentio iOS app's proven patterns rather than starting from zero.
 
+## Related repositories
+
+Namos Sessions is split across repos:
+
+| Repo | Visibility | Purpose |
+| --- | --- | --- |
+| **[namos-sessions-webapp](https://github.com/nayamoss/namos-sessions-webapp)** | Private | Primary application source — full feature set, internal docs, CI |
+| **[namos-sessions-public](https://github.com/nayamoss/namos-sessions-public)** | Public | Open-source mirror of the app for community use and contributions |
+| **[namos-sessions-marketing](https://github.com/nayamoss/namos-sessions-marketing)** | Private | Marketing site, landing pages, and content for Namos Sessions |
+| **namos-sessions-ios** (this repo) | Private | Native iOS companion app |
+
 ## What's real right now
 
 - Builds and launches (verified: `xcodebuild build` + boots in iOS Simulator).
