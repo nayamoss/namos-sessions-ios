@@ -57,6 +57,7 @@
 		E25FDE391C8AE2421F02B256 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C8968BE569F2DFD5AAF7D94 /* Assets.xcassets */; };
 		E7EA044D2F745D2B0DE9DD96 /* NamosDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80144C63E0D65C92B1613B81 /* NamosDesignSystem.swift */; };
 		E8864B67BECB83F2031118BC /* AgendaEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E38A2C4CB4B63F9CAD72F6 /* AgendaEditView.swift */; };
+		E8CB6F63E352FE3B1AD71D30 /* LiveSubscriptionDeliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7B8D461F08A9AD05BB7FA0 /* LiveSubscriptionDeliveryTests.swift */; };
 		EBF092B5F4512C3C07211B5B /* SponsorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3782AFA9C61E0FC13D7D8B /* SponsorDetailView.swift */; };
 		ED3AF1490B71D6E778BABE12 /* SpeakersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2878FC5B63D2BB7184B93D59 /* SpeakersViewModel.swift */; };
 		EE937DC7C068B24C4A5B8867 /* VoiceSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE0DA77DA5353A35B915F97 /* VoiceSessionStore.swift */; };
@@ -126,6 +127,7 @@
 		C547EB853C1BD8FA85BA5DD4 /* ClerkAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClerkAuthManager.swift; sourceTree = "<group>"; };
 		C63394FA291D1EE1AAC96FFB /* SpeakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakersView.swift; sourceTree = "<group>"; };
 		CAE99396A661AAAAE3123A87 /* ReviewsHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsHubView.swift; sourceTree = "<group>"; };
+		CC7B8D461F08A9AD05BB7FA0 /* LiveSubscriptionDeliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSubscriptionDeliveryTests.swift; sourceTree = "<group>"; };
 		CDFD94BC8688111653441A51 /* VoiceAgentConnectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAgentConnectionTests.swift; sourceTree = "<group>"; };
 		D155AA361B38F3A79A78CFD4 /* VoiceConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceConversationView.swift; sourceTree = "<group>"; };
 		D6355B12C9592729CBC1F48A /* TasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewModel.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		B1F1470A78952905B888BC0E /* NamosSessionsUITests */ = {
 			isa = PBXGroup;
 			children = (
+				CC7B8D461F08A9AD05BB7FA0 /* LiveSubscriptionDeliveryTests.swift */,
 				A60AFEDF2F8B3E2D3EB9D550 /* MicButtonCrashTests.swift */,
 				BBDE50F6CA5C5F62CD82E06C /* UXAuditScreenshotTests.swift */,
 				CDFD94BC8688111653441A51 /* VoiceAgentConnectionTests.swift */,
@@ -515,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8CB6F63E352FE3B1AD71D30 /* LiveSubscriptionDeliveryTests.swift in Sources */,
 				20E94B0EDCC1A33C0CF99EFA /* MicButtonCrashTests.swift in Sources */,
 				F7777819028CD92AA5C574C3 /* UXAuditScreenshotTests.swift in Sources */,
 				106869C53D61BFFC55EB0E83 /* VoiceAgentConnectionTests.swift in Sources */,
