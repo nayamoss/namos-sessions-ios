@@ -49,6 +49,10 @@ private struct SubmissionDetailView: View {
     @ObservedObject var viewModel: SubmissionsViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var isDeciding = false
+    // Mirrors the sponsor-side apply flow in PersonTasksView: the server's other entry
+    // point, applyToSubmission, keys off a submission rather than a speaker, so this is
+    // the missing surface that closes the gap for the submission side.
+    @State private var isApplyingTemplate = false
 
     var body: some View {
         ScrollView {
@@ -79,6 +83,16 @@ private struct SubmissionDetailView: View {
             }.frame(maxWidth: .infinity, alignment: .leading).padding(20)
         }
         .background(NamosColor.background).navigationTitle("Submission").navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Use template") { isApplyingTemplate = true }
+                    .font(.system(size: 15, weight: .medium))
+            }
+        }
+        .sheet(isPresented: $isApplyingTemplate) {
+            TaskTemplatePickerSheet(eventId: viewModel.eventId, target: .submission(id: submission.id)) {}
+                .presentationDetents([.medium, .large])
+        }
     }
 
     private func decide(_ status: String) async { isDeciding = true; if await viewModel.decide(submission, status: status) { dismiss() }; isDeciding = false }
