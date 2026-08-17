@@ -10,6 +10,10 @@ final class TasksViewModel: ObservableObject {
     @Published var tasks: [OrganizerTask] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
+    /// Backs the main Tasks list's group-by-person toggle — id -> display name, used to
+    /// label each task's speaker/sponsor without adding a new backend surface.
+    @Published var speakerNames: [ConvexId: String] = [:]
+    @Published var sponsorNames: [ConvexId: String] = [:]
 
     let eventId: ConvexId
     private var subscriptionTask: Task<Void, Never>?
@@ -80,6 +84,27 @@ final class TasksViewModel: ObservableObject {
         } catch {
             errorMessage = error.localizedDescription
             await refresh() // roll back to server truth on failure
+        }
+    }
+
+    /// Feeds the group-by-person filter's labels. Cheap at current event sizes (same
+    /// pattern SponsorsViewModel already uses to fetch two lists side by side) and only
+    /// needs to happen once — names rarely change mid-session.
+    func loadPersonNames() async {
+        async let speakersResult: [Speaker] = ConvexClient.shared.query("speakers:list", args: ["eventId": eventId])
+        async let sponsorsResult: [Sponsor] = ConvexClient.shared.query("sponsors:list", args: ["eventId": eventId])
+        do {
+            let speakers = try await speakersResult
+            speakerNames = Dictionary(uniqueKeysWithValues: speakers.map { ($0.id, $0.fullName) })
+        } catch {
+            // Non-fatal — the grouped view falls back to showing raw ids rather than
+            // blocking the whole Tasks screen over a names lookup.
+        }
+        do {
+            let sponsors = try await sponsorsResult
+            sponsorNames = Dictionary(uniqueKeysWithValues: sponsors.map { ($0.id, $0.name) })
+        } catch {
+            // Same fallback as above.
         }
     }
 

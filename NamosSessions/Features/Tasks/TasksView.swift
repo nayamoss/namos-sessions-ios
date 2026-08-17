@@ -1,16 +1,50 @@
 import SwiftUI
 
 struct TasksView: View {
+    // Matches CheckInView's/SubmissionsView's existing filter pattern: a segmented
+    // Picker as the first thing in the stack, no new visual language introduced.
+    private enum Grouping: String, CaseIterable, Identifiable {
+        case flat = "List"
+        case byPerson = "By person"
+        var id: Self { self }
+    }
+
     @StateObject private var viewModel: TasksViewModel
     @State private var isCreatingTask = false
+    @State private var grouping: Grouping = .flat
 
     init(eventId: ConvexId) {
         _viewModel = StateObject(wrappedValue: TasksViewModel(eventId: eventId))
     }
 
+    /// Groups by speaker/sponsor name, "Unassigned" last for tasks with neither id. Not
+    /// persisted or server-side — same client-only filtering PersonTasksView already
+    /// does for sponsors, just inverted to group the flat list instead of scoping to one person.
+    private var groupedTasks: [(name: String, tasks: [OrganizerTask])] {
+        var buckets: [String: [OrganizerTask]] = [:]
+        for task in viewModel.tasks {
+            let name: String
+            if let speakerId = task.speakerId {
+                name = viewModel.speakerNames[speakerId] ?? "Speaker"
+            } else if let sponsorId = task.sponsorId {
+                name = viewModel.sponsorNames[sponsorId] ?? "Sponsor"
+            } else {
+                name = "Unassigned"
+            }
+            buckets[name, default: []].append(task)
+        }
+        return buckets
+            .sorted { lhs, rhs in
+                if lhs.key == "Unassigned" { return false }
+                if rhs.key == "Unassigned" { return true }
+                return lhs.key.localizedCaseInsensitiveCompare(rhs.key) == .orderedAscending
+            }
+            .map { (name: $0.key, tasks: $0.value) }
+    }
+
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 10) {
+            LazyVStack(alignment: .leading, spacing: 10) {
                 Button {
                     isCreatingTask = true
                 } label: {
@@ -23,15 +57,40 @@ struct TasksView: View {
                 .background(NamosColor.accent)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 
-                ForEach(viewModel.tasks) { task in
-                    TaskRow(task: task) {
-                        Task { await viewModel.toggleComplete(task) }
+                if !viewModel.tasks.isEmpty {
+                    Picker("Grouping", selection: $grouping) {
+                        ForEach(Grouping.allCases) { option in
+                            Text(option.rawValue).tag(option)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.bottom, 2)
+                }
+
+                if grouping == .byPerson {
+                    ForEach(groupedTasks, id: \.name) { group in
+                        Text(group.name)
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(NamosColor.mutedText)
+                            .padding(.top, 6)
+                        ForEach(group.tasks) { task in
+                            TaskRow(task: task) {
+                                Task { await viewModel.toggleComplete(task) }
+                            }
+                        }
+                    }
+                } else {
+                    ForEach(viewModel.tasks) { task in
+                        TaskRow(task: task) {
+                            Task { await viewModel.toggleComplete(task) }
+                        }
                     }
                 }
                 if viewModel.tasks.isEmpty && !viewModel.isLoading {
                     Text("No tasks yet.")
                         .font(.system(size: 14))
                         .foregroundStyle(NamosColor.mutedText)
+                        .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.top, 40)
                 }
             }
@@ -40,7 +99,10 @@ struct TasksView: View {
         .background(NamosColor.background)
         .navigationTitle("Tasks")
         .refreshable { await viewModel.refresh() }
-        .task { viewModel.startSubscription() }
+        .task {
+            viewModel.startSubscription()
+            await viewModel.loadPersonNames()
+        }
         .sheet(isPresented: $isCreatingTask) {
             // A two-field form does not need a full-height sheet; it left a large dead
             // void under the form.
